@@ -1,49 +1,37 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
 import { Product } from "@/data/products";
-import { useCart } from "@/contexts/CartContext";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 interface ProductCardProps {
   product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
-  const { addItem } = useCart();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <div className="group animate-fade-up">
       <Link to={`/product/${product.id}`} className="block">
-        <div className="relative overflow-hidden rounded-lg bg-card aspect-[3/4]">
+        <div className="relative overflow-hidden bg-card rounded-sm aspect-square">
           <img
             src={product.images[0]}
             alt={product.name}
             loading="lazy"
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-[1.03] ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="absolute bottom-4 left-4 right-4 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-            <Button
-              onClick={(e) => {
-                e.preventDefault();
-                addItem(product, product.sizes[0]);
-              }}
-              className="w-full gap-2 bg-primary hover:bg-primary/90 text-primary-foreground"
-              size="sm"
-            >
-              <ShoppingBag className="w-4 h-4" />
-              Add to Cart
-            </Button>
-          </div>
+          {!imageLoaded && (
+            <div className="absolute inset-0 bg-muted animate-pulse" />
+          )}
         </div>
       </Link>
-      <div className="mt-3 px-1">
+      <div className="mt-4 flex items-start justify-between">
         <Link to={`/product/${product.id}`}>
-          <h3 className="font-display font-medium text-foreground text-sm group-hover:text-primary transition-colors">
+          <h3 className="text-xs tracking-[0.08em] uppercase text-foreground font-medium">
             {product.name}
           </h3>
         </Link>
-        <p className="text-muted-foreground text-sm mt-1">${product.price.toFixed(2)}</p>
+        <p className="text-xs text-muted-foreground ml-4 shrink-0">${product.price.toFixed(2)}</p>
       </div>
     </div>
   );

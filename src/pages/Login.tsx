@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Cloud } from "lucide-react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,12 +17,10 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-[80vh] flex items-center justify-center px-4">
-      <div className="w-full max-w-sm animate-fade-up">
-        <div className="text-center mb-8">
-          <Cloud className="w-8 h-8 text-primary mx-auto mb-4" />
-          <h1 className="font-display text-2xl font-bold text-foreground">Welcome back</h1>
-          <p className="text-sm text-muted-foreground mt-1">Sign in to your account</p>
+    <div className="min-h-[80vh] flex items-center justify-center px-6">
+      <div className="w-full max-w-xs animate-fade-up">
+        <div className="text-center mb-10">
+          <h1 className="text-sm tracking-[0.15em] uppercase text-foreground font-medium">Sign In</h1>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <Input
@@ -33,7 +29,7 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="bg-card border-border text-foreground placeholder:text-muted-foreground"
+            className="bg-card border-border text-foreground placeholder:text-muted-foreground text-xs rounded-sm"
           />
           <Input
             type="password"
@@ -41,18 +37,18 @@ const Login = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="bg-card border-border text-foreground placeholder:text-muted-foreground"
+            className="bg-card border-border text-foreground placeholder:text-muted-foreground text-xs rounded-sm"
           />
-          <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+          <button type="submit" className="w-full py-3 text-xs tracking-[0.15em] uppercase bg-foreground text-background rounded-sm hover:bg-foreground/90 transition-colors">
             Sign In
-          </Button>
+          </button>
         </form>
-        <p className="text-center text-sm text-muted-foreground mt-6">
+        <p className="text-center text-[10px] text-muted-foreground mt-6">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-primary hover:underline">Sign up</Link>
+          <Link to="/signup" className="text-foreground hover:underline">Sign up</Link>
         </p>
-        <p className="text-center text-xs text-muted-foreground mt-4">
-          Admin: admin@unlucky.cloud / any password
+        <p className="text-center text-[10px] text-muted-foreground/50 mt-4">
+          Admin: admin@unlucky.cloud
         </p>
       </div>
     </div>
