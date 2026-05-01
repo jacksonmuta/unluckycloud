@@ -16,7 +16,7 @@ const Admin = () => {
   const [form, setForm] = useState({ name: "", price: "", description: "", sizes: "S,M,L,XL" });
 
   if (!user?.isAdmin) return <Navigate to="/login" replace />;
-
+//bouy
   const resetForm = () => { setForm({ name: "", price: "", description: "", sizes: "S,M,L,XL" }); setEditing(null); setShowForm(false); };
 
   const handleEdit = (p: Product) => {
